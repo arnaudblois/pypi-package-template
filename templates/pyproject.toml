@@ -1,0 +1,39 @@
+[tool.poetry]
+name = "{{ pypi_name }}"
+version = "0.1.0"
+description = "{{ description }}"
+authors = ["{{ author_name }} <{{ author_email }}>"]
+license = "MIT"
+include = ["README.rst", "CHANGELOG.rst", "LICENSE"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.dev-dependencies]
+black = "^21.8b0"
+pytest = "^6.2.5"
+pylint-runner = "^0.6.0"
+pre-commit = "^2.15.0"
+isort = "^5.9.3"
+gitlint = "^0.15.1"
+gitchangelog = "^3.0.4"
+Sphinx = "^4.2.0"
+sphinx-rtd-theme = "^1.0.0"
+python-lsp-server = {extras = ["all"], version = "^1.2.4"}
+pytest-cov = "^3.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pylint.ini_options]
+disable = ["C0330", "C0326", "R0801"]
+max-line-length = 88
+ignore = "docs"
+
+[tool.pylint.master]
+ignore = "docs"
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
