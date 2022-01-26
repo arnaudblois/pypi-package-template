@@ -29,7 +29,6 @@ def generate_context(no_input, *args, **kwargs):
         Q("description"),
         Q("author_name", default=default_author_name),
         Q("author_email", default=default_author_email),
-        Q("git_url", default=default_git_url),
         Q("year", default=date.today().year, ask=False),
     ]
     context.resolve(no_input)
