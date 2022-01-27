@@ -1,0 +1,14 @@
+=======
+Credits
+=======
+
+Development Lead
+----------------
+
+* {{ author_name }} <{{ author_email }}>
+
+
+Contributors
+------------
+
+None yet. Why not be the first?
