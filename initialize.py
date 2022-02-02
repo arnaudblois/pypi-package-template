@@ -2,14 +2,16 @@
 
 from datetime import date
 
+from pathlib import Path
+import shutil
 import subprocess
+from tempfile import TemporaryDirectory
 
 from pytemplator.exceptions import InvalidInputError
 from pytemplator.utils import cd, Question as Q, Context
 
 def generate_context(no_input, *args, **kwargs):
     """Generate context."""
-
     context = Context()
     try:
         default_author_name = subprocess.run(["git", "config", "user.name"], capture_output=True, text=True).stdout.strip()
@@ -31,8 +33,13 @@ def generate_context(no_input, *args, **kwargs):
             ask="URL of the remote Git repo where this project has been initialised: "
         )
         git_question.resolve(no_input)
+        git_project_name = git_question.answer.split("/")[-1]
         try:
-            subprocess.run(["git", "clone", git_question.answer], check=True)
+            with TemporaryDirectory() as tempdir:
+                tempdir = Path(tempdir)
+                with cd(tempdir):
+                    subprocess.run(["git", "clone", git_question.answer], check=True)
+                shutil.copytree(tempdir / git_project_name, Path.cwd(), dirs_exist_ok=True)
         except subprocess.CalledProcessError as error:
             raise InvalidInputError from error
     else:
@@ -40,7 +47,7 @@ def generate_context(no_input, *args, **kwargs):
 
     context.questions = [
         git_question,
-        Q("pypi_name", ask="Name of the package on Pypi: "),
+        Q("pypi_name", ask="Name of the package on Pypi: ", default=lambda: git_project_name.replace("_","-").lower()),
         Q("module_name", ask=False, default=lambda: context["pypi_name"].replace("-","_").lower()),
         Q("title", default=lambda: context["pypi_name"].replace("-"," ").title()),
         Q("description"),
