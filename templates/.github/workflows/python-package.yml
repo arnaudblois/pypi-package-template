@@ -49,6 +49,7 @@ jobs:
         run: poetry install
       - name: Lint with flake8 and Pylint
         run: |
+          poetry run rstcheck *.rst
           poetry run flake8
           poetry run pylint_runner
       - name: Test with pytest

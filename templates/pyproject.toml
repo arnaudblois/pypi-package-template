@@ -10,17 +10,18 @@ include = ["README.rst", "CHANGELOG.rst", "LICENSE"]
 python = "^3.10"
 
 [tool.poetry.dev-dependencies]
-black = "^21.8b0"
-pytest = "^6.2.5"
+Sphinx = "^4.4.0"
+pytest = "^6.2.1"
+pytest-cov = "^3.0.0"
+flake8 = "^4.0.1"
 pylint-runner = "^0.6.0"
-pre-commit = "^2.15.0"
-isort = "^5.9.3"
-gitlint = "^0.15.1"
-gitchangelog = "^3.0.4"
-Sphinx = "^4.2.0"
 sphinx-rtd-theme = "^1.0.0"
 python-lsp-server = {extras = ["all"], version = "^1.2.4"}
-pytest-cov = "^3.0.0"
+black = "^22.1.0"
+pylint = "^2.12.2"
+pre-commit = "^2.17.0"
+gitlint = "^0.15.1"
+gitchangelog = "^3.0.4"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
