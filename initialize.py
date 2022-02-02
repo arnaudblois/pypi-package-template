@@ -44,10 +44,11 @@ def generate_context(no_input, *args, **kwargs):
             raise InvalidInputError from error
     else:
         git_question = Q("git_url", ask=False, default=default_git_url)
+        git_project_name = default_git_url.split("/")[-1].replace(".git", "")
 
     context.questions = [
         git_question,
-        Q("pypi_name", ask="Name of the package on Pypi: ", default=lambda: git_project_name.replace("_","-").lower()),
+        Q("pypi_name", ask="Name of the package on Pypi", default=lambda: git_project_name.replace("_","-").lower()),
         Q("module_name", ask=False, default=lambda: context["pypi_name"].replace("-","_").lower()),
         Q("title", default=lambda: context["pypi_name"].replace("-"," ").title()),
         Q("description"),
