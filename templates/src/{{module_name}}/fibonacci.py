@@ -10,4 +10,4 @@ def fibonacci(num: int) -> int:
 
     Here we're using the closed-form of the equation.
     """
-    return round(PHI ** num / math.sqrt(5))
+    return round(PHI**num / math.sqrt(5))
