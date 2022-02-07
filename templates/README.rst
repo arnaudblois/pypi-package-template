@@ -58,3 +58,14 @@ and :code:`docs/conf.py` are updated to the version to release -- Follow semanti
 3. Make sure everything is committed and merged to `main`
 
 4. Create a release tag in GitHub, this will run the python-publish action.
+
+
+Credits
+=========
+
+The boilerplate of this project was generated from the
+template `here <https://github.com/arnaudblois/pypi-package-template/>`_
+using `PyTemplator <https://pypi.org/project/pytemplator/>`_ v{{ pytemplator_version }}.
+
+
+.. _``
