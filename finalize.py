@@ -14,4 +14,5 @@ def finalize(context: dict, output_dir: Path):
         raise BadInputError
 
     shutil.copy(license_to_copy, output_dir)
+    os.rename(output_dir / context["license"], output_dir / "LICENSE")
     shutil.rmtree(output_dir / "licenses")

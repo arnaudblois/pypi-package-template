@@ -28,13 +28,16 @@ def generate_context(no_input, *args, **kwargs):
     except subprocess.CalledProcessError:
         default_git_url = None
 
-    if not default_git_url:
+    if default_git_url:
+        git_question = Q("git_url", ask=False, default=default_git_url)
+        git_project_name = default_git_url.strip("/").split("/")[-1].replace(".git", "")
+    else:
         git_question = Q(
             "git_url",
             ask="URL of the remote Git repo where this new package has been initialised: "
         )
         git_question.resolve(no_input)
-        git_project_name = git_question.answer.split("/")[-1]
+        git_project_name = git_question.answer.strip("/").split("/")[-1]
         try:
             with TemporaryDirectory() as tempdir:
                 tempdir = Path(tempdir)
@@ -43,9 +46,6 @@ def generate_context(no_input, *args, **kwargs):
                 shutil.copytree(tempdir / git_project_name, Path.cwd(), dirs_exist_ok=True)
         except subprocess.CalledProcessError as error:
             raise InvalidInputError from error
-    else:
-        git_question = Q("git_url", ask=False, default=default_git_url)
-        git_project_name = default_git_url.split("/")[-1].replace(".git", "")
 
     licenses = ["AGPL", "APACHE", "BOOST", "GPL", "LGPL", "MIT", "MOZILLA", "UNLICENSE"]
 
